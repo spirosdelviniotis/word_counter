@@ -1,0 +1,1 @@
+web: gunicorn zphase.app --log-file -
