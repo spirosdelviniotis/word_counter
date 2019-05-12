@@ -55,4 +55,4 @@ Configuring Redis on Heroku:
 .. code-block::
 
     ~/repos/zphase -  (master) $ heroku addons:create redistogo:nano --app serene-beach-63709
-    ~/repos/zphase -  (master) $ heroku config --app wordcount-stage | grep REDISTOGO_URL
+    ~/repos/zphase -  (master) $ heroku config --app serene-beach-63709 | grep REDISTOGO_URL
