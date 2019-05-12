@@ -1,6 +1,6 @@
 
 =================
- Wedding Website
+Word Counter
 =================
 
-The project is currently in early stage of development.
+Tutorial (https://realpython.com/flask-by-example-part-1-project-setup/)
