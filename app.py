@@ -33,12 +33,11 @@ from models import *
 
 
 def count_and_save_words(url):
-
     errors = []
 
     try:
         r = requests.get(url)
-    except:
+    except ValueError:
         errors.append(
             "Unable to get URL. Please make sure it's valid and try again."
         )
@@ -51,8 +50,8 @@ def count_and_save_words(url):
     text = nltk.Text(tokens)
 
     # remove punctuation, count raw words
-    nonPunct = re.compile('.*[A-Za-z].*')
-    raw_words = [w for w in text if nonPunct.match(w)]
+    non_punct = re.compile('.*[A-Za-z].*')
+    raw_words = [w for w in text if non_punct.match(w)]
     raw_word_count = Counter(raw_words)
 
     # stop words
@@ -69,7 +68,7 @@ def count_and_save_words(url):
         db.session.add(result)
         db.session.commit()
         return result.id
-    except:
+    except ValueError:
         errors.append("Unable to add item to database.")
         return {"error": errors}
 
@@ -81,7 +80,6 @@ def index():
 
 @app.route("/results/<job_key>", methods=['GET'])
 def get_results(job_key):
-
     job = Job.fetch(job_key, connection=conn)
 
     if job.is_finished:
@@ -100,8 +98,6 @@ def get_results(job_key):
 def get_counts():
     data = json.loads(request.data.decode())
     url = data["url"]
-    #if 'http://' not in url[:7]:
-    #    url = 'http://' + url
 
     # start job
     job = q.enqueue_call(
